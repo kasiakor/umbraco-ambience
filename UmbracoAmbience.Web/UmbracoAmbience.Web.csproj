@@ -363,6 +363,9 @@
     <Content Include="sass\libs\_vars.scss" />
     <Content Include="sass\libs\_vendor.scss" />
     <Content Include="sass\main.scss" />
+    <Content Include="Views\Content.cshtml" />
+    <Content Include="Views\Home.cshtml" />
+    <Content Include="Views\WebBase.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
