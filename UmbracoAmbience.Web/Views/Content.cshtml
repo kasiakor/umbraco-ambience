@@ -1,7 +1,13 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "WebBase.cshtml";
-    string mainImageUrl = Model.Content.GetPropertyValue<IPublishedContent>("mainImage").Url;
+
+    string mainImageUrl = "";
+
+    if (Model.Content.HasValue("mainImage"))
+    {
+         mainImageUrl = Model.Content.GetPropertyValue<IPublishedContent>("mainImage").Url;
+    }
 }
 
 <section id="main" class="wrapper style1">
