@@ -1,17 +1,22 @@
 ﻿@inherits UmbracoViewPage
 
+@{ 
+    string mainImageUrl = "";
+
+    if (Umbraco.AssignedContentItem.HasValue("mainImage"))
+    {
+         mainImageUrl = Umbraco.AssignedContentItem.GetPropertyValue<IPublishedContent>("mainImage").Url +"?width=366&height=366&mode=crop&anchor=center";
+    }
+}
+
 <!-- Intro -->
 <section id="intro" class="wrapper featured style1">
     <div class="inner">
-        <span class="image"><img src="/images/pic01.jpg" alt="" /></span>
+        <span class="image"><img src="@mainImageUrl" alt="" /></span>
         <div class="content">
             <header>
-                <h1>Reflex</h1>
-                <p>
-                    Lorem ipsum dolor sit magna consectetur<br />
-                    adipiscing elit. Duis dapibus rutrum facilisis.<br />
-                    Class aptent taciti sociosqu torquent.
-                </p>
+                <h1>@Umbraco.Field("pageTitle", altFieldAlias: "pageName")</h1>
+                <p>@Umbraco.Field("subtitle")</p>
             </header>
             <footer>
                 <ul class="actions">

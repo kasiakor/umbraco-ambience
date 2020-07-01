@@ -19,14 +19,14 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "b93ba76267c6b6b1")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.5")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "a939982b63eb938b")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.2")]
 
 namespace Umbraco.Web.PublishedContentModels
 {
 	/// <summary>Home</summary>
 	[PublishedContentModel("home")]
-	public partial class Home : PublishedContentModel
+	public partial class Home : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IMainTitleImageControls
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "home";
@@ -48,11 +48,56 @@ namespace Umbraco.Web.PublishedContentModels
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
+
+		///<summary>
+		/// Main Content: Enter the main content of this page
+		///</summary>
+		[ImplementPropertyType("mainContent")]
+		public IHtmlString MainContent
+		{
+			get { return Umbraco.Web.PublishedContentModels.BasicContentControls.GetMainContent(this); }
+		}
+
+		///<summary>
+		/// Page Title: Enter page title. If left blank, the name of the page will be used
+		///</summary>
+		[ImplementPropertyType("pageTitle")]
+		public string PageTitle
+		{
+			get { return Umbraco.Web.PublishedContentModels.BasicTitleControls.GetPageTitle(this); }
+		}
+
+		///<summary>
+		/// Subtitle: Enter the subtitle
+		///</summary>
+		[ImplementPropertyType("subtitle")]
+		public string Subtitle
+		{
+			get { return Umbraco.Web.PublishedContentModels.BasicTitleControls.GetSubtitle(this); }
+		}
+
+		///<summary>
+		/// Title Link: Enter the link for title and subtitle
+		///</summary>
+		[ImplementPropertyType("titleLink")]
+		public Umbraco.Web.Models.RelatedLinks TitleLink
+		{
+			get { return Umbraco.Web.PublishedContentModels.BasicTitleControls.GetTitleLink(this); }
+		}
+
+		///<summary>
+		/// Main Image: Please choose an image to show under the title
+		///</summary>
+		[ImplementPropertyType("mainImage")]
+		public IPublishedContent MainImage
+		{
+			get { return Umbraco.Web.PublishedContentModels.MainTitleImageControls.GetMainImage(this); }
+		}
 	}
 
 	/// <summary>Content</summary>
 	[PublishedContentModel("content")]
-	public partial class Content : PublishedContentModel, IBasicTitleControls, IMainTitleImageControls, IUmbracoUrlAliasControls
+	public partial class Content : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IMainTitleImageControls, IUmbracoUrlAliasControls
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "content";
@@ -76,6 +121,15 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// Main Content: Enter the main content of this page
+		///</summary>
+		[ImplementPropertyType("mainContent")]
+		public IHtmlString MainContent
+		{
+			get { return Umbraco.Web.PublishedContentModels.BasicContentControls.GetMainContent(this); }
+		}
+
+		///<summary>
 		/// Page Title: Enter page title. If left blank, the name of the page will be used
 		///</summary>
 		[ImplementPropertyType("pageTitle")]
@@ -91,6 +145,15 @@ namespace Umbraco.Web.PublishedContentModels
 		public string Subtitle
 		{
 			get { return Umbraco.Web.PublishedContentModels.BasicTitleControls.GetSubtitle(this); }
+		}
+
+		///<summary>
+		/// Title Link: Enter the link for title and subtitle
+		///</summary>
+		[ImplementPropertyType("titleLink")]
+		public Umbraco.Web.Models.RelatedLinks TitleLink
+		{
+			get { return Umbraco.Web.PublishedContentModels.BasicTitleControls.GetTitleLink(this); }
 		}
 
 		///<summary>
@@ -167,6 +230,9 @@ namespace Umbraco.Web.PublishedContentModels
 
 		/// <summary>Subtitle</summary>
 		string Subtitle { get; }
+
+		/// <summary>Title Link</summary>
+		Umbraco.Web.Models.RelatedLinks TitleLink { get; }
 	}
 
 	/// <summary>Basic Title Controls</summary>
@@ -217,6 +283,18 @@ namespace Umbraco.Web.PublishedContentModels
 
 		/// <summary>Static getter for Subtitle</summary>
 		public static string GetSubtitle(IBasicTitleControls that) { return that.GetPropertyValue<string>("subtitle"); }
+
+		///<summary>
+		/// Title Link: Enter the link for title and subtitle
+		///</summary>
+		[ImplementPropertyType("titleLink")]
+		public Umbraco.Web.Models.RelatedLinks TitleLink
+		{
+			get { return GetTitleLink(this); }
+		}
+
+		/// <summary>Static getter for Title Link</summary>
+		public static Umbraco.Web.Models.RelatedLinks GetTitleLink(IBasicTitleControls that) { return that.GetPropertyValue<Umbraco.Web.Models.RelatedLinks>("titleLink"); }
 	}
 
 	// Mixin content Type 1061 with alias "mainTitleImageControls"
@@ -263,6 +341,52 @@ namespace Umbraco.Web.PublishedContentModels
 
 		/// <summary>Static getter for Main Image</summary>
 		public static IPublishedContent GetMainImage(IMainTitleImageControls that) { return that.GetPropertyValue<IPublishedContent>("mainImage"); }
+	}
+
+	// Mixin content Type 1066 with alias "basicContentControls"
+	/// <summary>Basic Content Controls</summary>
+	public partial interface IBasicContentControls : IPublishedContent
+	{
+		/// <summary>Main Content</summary>
+		IHtmlString MainContent { get; }
+	}
+
+	/// <summary>Basic Content Controls</summary>
+	[PublishedContentModel("basicContentControls")]
+	public partial class BasicContentControls : PublishedContentModel, IBasicContentControls
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "basicContentControls";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public BasicContentControls(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<BasicContentControls, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Main Content: Enter the main content of this page
+		///</summary>
+		[ImplementPropertyType("mainContent")]
+		public IHtmlString MainContent
+		{
+			get { return GetMainContent(this); }
+		}
+
+		/// <summary>Static getter for Main Content</summary>
+		public static IHtmlString GetMainContent(IBasicContentControls that) { return that.GetPropertyValue<IHtmlString>("mainContent"); }
 	}
 
 	/// <summary>Folder</summary>
