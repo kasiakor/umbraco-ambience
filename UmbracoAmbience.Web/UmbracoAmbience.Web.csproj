@@ -389,6 +389,7 @@
     <Content Include="Views\Partials\Content\_Intro.cshtml" />
     <Content Include="Views\Partials\Content\_Services.cshtml" />
     <Content Include="Views\Partials\Content\_Spotlight.cshtml" />
+    <Content Include="Views\Partials\Content\_BackgroundImageContent.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
