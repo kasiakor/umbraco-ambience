@@ -11,7 +11,7 @@ namespace UmbracoAmbience.Web.Controllers
     {
         public string GetPathView(string name)
         {
-            return $"/Views/Partals/Content/{name}.cshtml";
+            return $"/Views/Partals/Contact/{name}.cshtml";
         }
 
         [HttpGet]
