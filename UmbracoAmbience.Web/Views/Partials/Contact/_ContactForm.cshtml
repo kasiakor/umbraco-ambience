@@ -1,0 +1,32 @@
+﻿@inherits UmbracoViewPage<ContactViewModel>
+
+@using UmbracoAmbience.Web.Models
+
+<div id="form-outer">
+    @using (Ajax.BeginForm("SubmitForm", "Contact", new AjaxOptions()
+    {
+        UpdateTargetId = "form-result",
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        OnSuccess = "contactForm.showResult",
+        OnFailure = "contactForm.showResult"
+    }, new { id = "contact-form" }
+    ))
+    {
+        <div class="fields">
+            <div class="field half">
+                @Html.TextBoxFor(m => m.Name, new { placeholder = "Name" })
+            </div>
+            <div class="field half">
+                @Html.TextBoxFor(m => m.Email, new { placeholder = "Email" })
+            </div>
+            <div class="field">
+                @Html.TextAreaFor(m => m.Message, new { placeholder = "Message", rows = "4" })
+            </div>
+        </div>
+        <ul class="actions">
+            <li><input type="submit" value="Send Message" /></li>
+        </ul>
+    }
+</div>
+<div id="form-result"></div>
