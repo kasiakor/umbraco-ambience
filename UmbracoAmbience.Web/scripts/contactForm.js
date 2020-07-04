@@ -9,11 +9,12 @@
             e.preventDefault();
             var form = $(this).closest("form");
             form.submit();
-        }),
+        })
+    },
 
-    showResult: function() {
+    showResult: function () {
         $("#form-outer").hide();
         $("#form-result").show();
     }
-    }
-contactForm.init()
+};
+contactForm.init();
