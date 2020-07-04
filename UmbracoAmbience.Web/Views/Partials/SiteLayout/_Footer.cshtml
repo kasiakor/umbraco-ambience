@@ -2,15 +2,15 @@
 @using Umbraco.Web.Models
 
 @{
-    IEnumerable<RelatedLink> footerSocialList = Umbraco.AssignedContentItem.GetPropertyValue<IEnumerable<RelatedLink>>("footerSocialList");
+    IEnumerable<RelatedLink> footerSocialList = Umbraco.AssignedContentItem.GetPropertyValue<IEnumerable<RelatedLink>>("footerSocialList", true);
 }
 <section id="footer" class="wrapper split style2">
     <div class="inner">
         <section>
             <header>
-                <h3>@Umbraco.Field("footerTitle")</h3>
+                <h3>@Umbraco.Field("footerTitle", recursive: true)</h3>
             </header>
-            <p>@Umbraco.Field("footerContent")</p>
+            <p>@Umbraco.Field("footerContent", recursive: true)</p>
             @if (footerSocialList != null && footerSocialList.Count() > 0)
             {
                 <ul class="icons">
