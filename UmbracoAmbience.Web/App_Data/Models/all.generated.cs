@@ -8,8 +8,8 @@ using  Umbraco.Web;
 using  Umbraco.ModelsBuilder;
 using  Umbraco.ModelsBuilder.Umbraco;
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "3267c4e125adc9da")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.3")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "c06fc39890caf4f")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
 
 
 // FILE: models.generated.cs
@@ -140,7 +140,7 @@ namespace Umbraco.Web.PublishedContentModels
 
 	/// <summary>Content</summary>
 	[PublishedContentModel("content")]
-	public partial class Content : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IImageListControls, IMainTitleImageControls, IUmbracoUrlAliasControls
+	public partial class Content : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IHideFromNavigationControls, IImageListControls, IMainTitleImageControls, IUmbracoUrlAliasControls
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "content";
@@ -197,6 +197,15 @@ namespace Umbraco.Web.PublishedContentModels
 		public Umbraco.Web.Models.RelatedLinks TitleLink
 		{
 			get { return Umbraco.Web.PublishedContentModels.BasicTitleControls.GetTitleLink(this); }
+		}
+
+		///<summary>
+		/// Umbraco Navi Hide: Tick this box if you want to hide this page
+		///</summary>
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide
+		{
+			get { return Umbraco.Web.PublishedContentModels.HideFromNavigationControls.GetUmbracoNaviHide(this); }
 		}
 
 		///<summary>
@@ -561,6 +570,52 @@ namespace Umbraco.Web.PublishedContentModels
 
 		/// <summary>Static getter for Image List</summary>
 		public static IEnumerable<IPublishedContent> GetImageList(IImageListControls that) { return that.GetPropertyValue<IEnumerable<IPublishedContent>>("imageList"); }
+	}
+
+	// Mixin content Type 1079 with alias "hideFromNavigationControls"
+	/// <summary>Hide From Navigation Controls</summary>
+	public partial interface IHideFromNavigationControls : IPublishedContent
+	{
+		/// <summary>Umbraco Navi Hide</summary>
+		bool UmbracoNaviHide { get; }
+	}
+
+	/// <summary>Hide From Navigation Controls</summary>
+	[PublishedContentModel("hideFromNavigationControls")]
+	public partial class HideFromNavigationControls : PublishedContentModel, IHideFromNavigationControls
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "hideFromNavigationControls";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public HideFromNavigationControls(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HideFromNavigationControls, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Umbraco Navi Hide: Tick this box if you want to hide this page
+		///</summary>
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide
+		{
+			get { return GetUmbracoNaviHide(this); }
+		}
+
+		/// <summary>Static getter for Umbraco Navi Hide</summary>
+		public static bool GetUmbracoNaviHide(IHideFromNavigationControls that) { return that.GetPropertyValue<bool>("umbracoNaviHide"); }
 	}
 
 	/// <summary>Folder</summary>
