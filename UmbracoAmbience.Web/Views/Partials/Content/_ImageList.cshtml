@@ -1,23 +1,24 @@
 ﻿@inherits UmbracoViewPage
 @using Umbraco.Web.Models
 
+@{
+    IEnumerable<IPublishedContent> images = Umbraco.AssignedContentItem.GetPropertyValue<IEnumerable<IPublishedContent>>("imageList");
+}
 
-<!-- Image -->
-<section>
-    <h2>Image</h2>
-    <h3>Fit</h3>
-    <div class="box alt">
-        <div class="row gtr-uniform">
-            <div class="col-12"><span class="image fit"><img src="/images/pic05.jpg" alt="" /></span></div>
-            <div class="col-4"><span class="image fit"><img src="/images/pic02.jpg" alt="" /></span></div>
-            <div class="col-4"><span class="image fit"><img src="/images/pic04.jpg" alt="" /></span></div>
-            <div class="col-4"><span class="image fit"><img src="/images/pic03.jpg" alt="" /></span></div>
-            <div class="col-4"><span class="image fit"><img src="/images/pic04.jpg" alt="" /></span></div>
-            <div class="col-4"><span class="image fit"><img src="/images/pic03.jpg" alt="" /></span></div>
-            <div class="col-4"><span class="image fit"><img src="/images/pic02.jpg" alt="" /></span></div>
-            <div class="col-4"><span class="image fit"><img src="/images/pic03.jpg" alt="" /></span></div>
-            <div class="col-4"><span class="image fit"><img src="/images/pic02.jpg" alt="" /></span></div>
-            <div class="col-4"><span class="image fit"><img src="/images/pic04.jpg" alt="" /></span></div>
+@if (images != null && images.Count() > 0)
+{
+    <!-- Image -->
+    <section>
+        <h2>Gallery</h2>
+        <h3>Examples</h3>
+        <div class="box alt">
+            <div class="row gtr-uniform">
+                <div class="col-12"><span class="image fit"><img src="@images.First().Url" alt="" /></span></div>
+                @foreach (IPublishedContent image in images.Skip(1))
+                {
+                    <div class="col-4"><span class="image fit"><img src="@image.Url" alt="" /></span></div>
+                }
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+}
