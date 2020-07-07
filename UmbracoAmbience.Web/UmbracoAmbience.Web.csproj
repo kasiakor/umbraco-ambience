@@ -313,6 +313,7 @@
     <Content Include="scripts\main.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="scripts\util.js" />
+    <Content Include="Views\PrettyLink.cshtml" />
     <Content Include="Web.config" />
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />

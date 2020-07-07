@@ -19,8 +19,8 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "c06fc39890caf4f")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "6f24055cfb752003")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.4")]
 
 namespace Umbraco.Web.PublishedContentModels
 {
@@ -600,6 +600,87 @@ namespace Umbraco.Web.PublishedContentModels
 
 		/// <summary>Static getter for Umbraco Navi Hide</summary>
 		public static bool GetUmbracoNaviHide(IHideFromNavigationControls that) { return that.GetPropertyValue<bool>("umbracoNaviHide"); }
+	}
+
+	// Mixin content Type 1082 with alias "prettyLinkControls"
+	/// <summary>Pretty Link Controls</summary>
+	public partial interface IPrettyLinkControls : IPublishedContent
+	{
+		/// <summary>Link Target</summary>
+		Umbraco.Web.Models.RelatedLinks LinkTarget { get; }
+	}
+
+	/// <summary>Pretty Link Controls</summary>
+	[PublishedContentModel("prettyLinkControls")]
+	public partial class PrettyLinkControls : PublishedContentModel, IPrettyLinkControls
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "prettyLinkControls";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public PrettyLinkControls(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<PrettyLinkControls, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Link Target: Enter the link for this pretty link
+		///</summary>
+		[ImplementPropertyType("linkTarget")]
+		public Umbraco.Web.Models.RelatedLinks LinkTarget
+		{
+			get { return GetLinkTarget(this); }
+		}
+
+		/// <summary>Static getter for Link Target</summary>
+		public static Umbraco.Web.Models.RelatedLinks GetLinkTarget(IPrettyLinkControls that) { return that.GetPropertyValue<Umbraco.Web.Models.RelatedLinks>("linkTarget"); }
+	}
+
+	/// <summary>Pretty Link</summary>
+	[PublishedContentModel("prettyLink")]
+	public partial class PrettyLink : PublishedContentModel, IPrettyLinkControls
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "prettyLink";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public PrettyLink(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<PrettyLink, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Link Target: Enter the link for this pretty link
+		///</summary>
+		[ImplementPropertyType("linkTarget")]
+		public Umbraco.Web.Models.RelatedLinks LinkTarget
+		{
+			get { return Umbraco.Web.PublishedContentModels.PrettyLinkControls.GetLinkTarget(this); }
+		}
 	}
 
 	/// <summary>Folder</summary>
