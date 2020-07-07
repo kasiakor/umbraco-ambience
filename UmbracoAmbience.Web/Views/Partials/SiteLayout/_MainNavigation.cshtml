@@ -1,8 +1,10 @@
 ﻿@inherits UmbracoViewPage
+@using Umbraco.Web.Models
 
-@{ 
+@{
     IPublishedContent homePage = Umbraco.AssignedContentItem.AncestorOrSelf("home");
     IEnumerable<IPublishedContent> navigationPages = homePage.Children(x => x.IsVisible());
+
 }
 
 <header id="header">
@@ -20,7 +22,28 @@
         {
             foreach (IPublishedContent page in navigationPages)
             {
-                <li><a href="@page.Url">@page.Name</a></li>
+                if (page.DocumentTypeAlias == "prettyLink")
+                {
+                    RelatedLinks relatedLinks = page.GetPropertyValue<RelatedLinks>("linkTarget");
+                    RelatedLink prettyLink = relatedLinks.FirstOrDefault();
+                    {
+                        if (prettyLink != null)
+                        {
+                            if(@prettyLink.NewWindow)
+                            {
+                                <li><a href="#" onclick='window.open("@prettyLink.Link");return false;'>@prettyLink.Caption</a></li> 
+                            }
+                            else
+                            {
+                                <li><a href="@prettyLink.Link">@prettyLink.Caption</a></li>
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    <li><a href="@page.Url"> @page.Name </a></li>
+                }
             }
         }
     </ul>
