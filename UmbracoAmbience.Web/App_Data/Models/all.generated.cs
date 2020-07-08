@@ -8,8 +8,8 @@ using  Umbraco.Web;
 using  Umbraco.ModelsBuilder;
 using  Umbraco.ModelsBuilder.Umbraco;
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "4b4cf0c6df9a7d6")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.3")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "9d2d6c09165a6422")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.4")]
 
 
 // FILE: models.generated.cs
@@ -144,6 +144,15 @@ namespace Umbraco.Web.PublishedContentModels
 		public IHtmlString ServicesDescription
 		{
 			get { return Umbraco.Web.PublishedContentModels.ServicesControls.GetServicesDescription(this); }
+		}
+
+		///<summary>
+		/// Services Icons: Add icon for the services
+		///</summary>
+		[ImplementPropertyType("servicesIcons")]
+		public Umbraco.Web.Models.RelatedLinks ServicesIcons
+		{
+			get { return Umbraco.Web.PublishedContentModels.ServicesControls.GetServicesIcons(this); }
 		}
 
 		///<summary>
@@ -742,6 +751,9 @@ namespace Umbraco.Web.PublishedContentModels
 		/// <summary>Services Description</summary>
 		IHtmlString ServicesDescription { get; }
 
+		/// <summary>Services Icons</summary>
+		Umbraco.Web.Models.RelatedLinks ServicesIcons { get; }
+
 		/// <summary>Services Intro</summary>
 		IHtmlString ServicesIntro { get; }
 
@@ -788,6 +800,18 @@ namespace Umbraco.Web.PublishedContentModels
 
 		/// <summary>Static getter for Services Description</summary>
 		public static IHtmlString GetServicesDescription(IServicesControls that) { return that.GetPropertyValue<IHtmlString>("servicesDescription"); }
+
+		///<summary>
+		/// Services Icons: Add icon for the services
+		///</summary>
+		[ImplementPropertyType("servicesIcons")]
+		public Umbraco.Web.Models.RelatedLinks ServicesIcons
+		{
+			get { return GetServicesIcons(this); }
+		}
+
+		/// <summary>Static getter for Services Icons</summary>
+		public static Umbraco.Web.Models.RelatedLinks GetServicesIcons(IServicesControls that) { return that.GetPropertyValue<Umbraco.Web.Models.RelatedLinks>("servicesIcons"); }
 
 		///<summary>
 		/// Services Intro: Enter the intro for the services section
