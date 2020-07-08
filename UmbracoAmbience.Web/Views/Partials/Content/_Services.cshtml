@@ -1,13 +1,20 @@
 ﻿@inherits UmbracoViewPage
+@using Umbraco.Web.Models
+
+@{
+    IEnumerable<RelatedLink> servicesLinks = Umbraco.AssignedContentItem.GetPropertyValue<IEnumerable<RelatedLink>>("servicesLink", true);
+    RelatedLink servicesLink = null;
+    if (servicesLinks != null && servicesLinks.Count() > 0)
+    {
+        servicesLink = servicesLinks.FirstOrDefault();
+    }
+}
 
 <section class="wrapper style2 special">
     <div class="inner">
         <header>
-            <h2>Ipsum malesuada</h2>
-            <p>
-                Rutrum facilisis. Class aptent taciti sociosqu<br />
-                litora torquent et conubia etiam nostra.
-            </p>
+            <h2>@Umbraco.Field("servicesTitle", recursive: true)</h2>
+            <p>@Umbraco.Field("servicesIntro", recursive: true)</p>
         </header>
         <ul class="icons major style2">
             <li><span class="icon solid fa-code"><span class="label">Lorem</span></span></li>
@@ -24,11 +31,16 @@
                 <span class="icon solid fa-briefcase"><span class="label">Tempus</span></span>
             </li>
         </ul>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos malesuada fames ac turpis egestas. In non lorem amet. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique eu nibh.</p>
+        <p>@Umbraco.Field("servicesDescription", recursive: true)</p>
+
+        @if (servicesLink != null && !string.IsNullOrEmpty(servicesLink.Link))
+        {
         <footer>
             <ul class="actions special">
-                <li><a href="#" class="button">Details</a></li>
+                <li><a href="@servicesLink.Link" target="@(servicesLink.NewWindow ? "_blank" : null)" class="button">@servicesLink.Caption</a></li>
             </ul>
         </footer>
+
+        }
     </div>
 </section>

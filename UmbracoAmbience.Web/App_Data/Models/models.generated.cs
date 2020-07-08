@@ -19,14 +19,14 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "6f24055cfb752003")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.4")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "4b4cf0c6df9a7d6")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.3")]
 
 namespace Umbraco.Web.PublishedContentModels
 {
 	/// <summary>Home</summary>
 	[PublishedContentModel("home")]
-	public partial class Home : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IFooterContentControls, IMainTitleImageControls
+	public partial class Home : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IFooterContentControls, IMainTitleImageControls, IServicesControls
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "home";
@@ -119,6 +119,42 @@ namespace Umbraco.Web.PublishedContentModels
 		public IPublishedContent MainImage
 		{
 			get { return Umbraco.Web.PublishedContentModels.MainTitleImageControls.GetMainImage(this); }
+		}
+
+		///<summary>
+		/// Services Description: Enter description for the services section
+		///</summary>
+		[ImplementPropertyType("servicesDescription")]
+		public IHtmlString ServicesDescription
+		{
+			get { return Umbraco.Web.PublishedContentModels.ServicesControls.GetServicesDescription(this); }
+		}
+
+		///<summary>
+		/// Services Intro: Enter the intro for the services section
+		///</summary>
+		[ImplementPropertyType("servicesIntro")]
+		public IHtmlString ServicesIntro
+		{
+			get { return Umbraco.Web.PublishedContentModels.ServicesControls.GetServicesIntro(this); }
+		}
+
+		///<summary>
+		/// Services Link: Enter the link for services section
+		///</summary>
+		[ImplementPropertyType("servicesLink")]
+		public Umbraco.Web.Models.RelatedLinks ServicesLink
+		{
+			get { return Umbraco.Web.PublishedContentModels.ServicesControls.GetServicesLink(this); }
+		}
+
+		///<summary>
+		/// Services Title: Enter the title for services section
+		///</summary>
+		[ImplementPropertyType("servicesTitle")]
+		public string ServicesTitle
+		{
+			get { return Umbraco.Web.PublishedContentModels.ServicesControls.GetServicesTitle(this); }
 		}
 	}
 
@@ -681,6 +717,97 @@ namespace Umbraco.Web.PublishedContentModels
 		{
 			get { return Umbraco.Web.PublishedContentModels.PrettyLinkControls.GetLinkTarget(this); }
 		}
+	}
+
+	// Mixin content Type 1086 with alias "servicesControls"
+	/// <summary>Services Controls</summary>
+	public partial interface IServicesControls : IPublishedContent
+	{
+		/// <summary>Services Description</summary>
+		IHtmlString ServicesDescription { get; }
+
+		/// <summary>Services Intro</summary>
+		IHtmlString ServicesIntro { get; }
+
+		/// <summary>Services Link</summary>
+		Umbraco.Web.Models.RelatedLinks ServicesLink { get; }
+
+		/// <summary>Services Title</summary>
+		string ServicesTitle { get; }
+	}
+
+	/// <summary>Services Controls</summary>
+	[PublishedContentModel("servicesControls")]
+	public partial class ServicesControls : PublishedContentModel, IServicesControls
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "servicesControls";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public ServicesControls(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<ServicesControls, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Services Description: Enter description for the services section
+		///</summary>
+		[ImplementPropertyType("servicesDescription")]
+		public IHtmlString ServicesDescription
+		{
+			get { return GetServicesDescription(this); }
+		}
+
+		/// <summary>Static getter for Services Description</summary>
+		public static IHtmlString GetServicesDescription(IServicesControls that) { return that.GetPropertyValue<IHtmlString>("servicesDescription"); }
+
+		///<summary>
+		/// Services Intro: Enter the intro for the services section
+		///</summary>
+		[ImplementPropertyType("servicesIntro")]
+		public IHtmlString ServicesIntro
+		{
+			get { return GetServicesIntro(this); }
+		}
+
+		/// <summary>Static getter for Services Intro</summary>
+		public static IHtmlString GetServicesIntro(IServicesControls that) { return that.GetPropertyValue<IHtmlString>("servicesIntro"); }
+
+		///<summary>
+		/// Services Link: Enter the link for services section
+		///</summary>
+		[ImplementPropertyType("servicesLink")]
+		public Umbraco.Web.Models.RelatedLinks ServicesLink
+		{
+			get { return GetServicesLink(this); }
+		}
+
+		/// <summary>Static getter for Services Link</summary>
+		public static Umbraco.Web.Models.RelatedLinks GetServicesLink(IServicesControls that) { return that.GetPropertyValue<Umbraco.Web.Models.RelatedLinks>("servicesLink"); }
+
+		///<summary>
+		/// Services Title: Enter the title for services section
+		///</summary>
+		[ImplementPropertyType("servicesTitle")]
+		public string ServicesTitle
+		{
+			get { return GetServicesTitle(this); }
+		}
+
+		/// <summary>Static getter for Services Title</summary>
+		public static string GetServicesTitle(IServicesControls that) { return that.GetPropertyValue<string>("servicesTitle"); }
 	}
 
 	/// <summary>Folder</summary>
