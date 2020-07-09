@@ -8,7 +8,7 @@ using  Umbraco.Web;
 using  Umbraco.ModelsBuilder;
 using  Umbraco.ModelsBuilder.Umbraco;
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "9d2d6c09165a6422")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "5a86c77b98ee3fbc")]
 [assembly:System.Reflection.AssemblyVersion("0.0.0.4")]
 
 
@@ -848,6 +848,32 @@ namespace Umbraco.Web.PublishedContentModels
 
 		/// <summary>Static getter for Services Title</summary>
 		public static string GetServicesTitle(IServicesControls that) { return that.GetPropertyValue<string>("servicesTitle"); }
+	}
+
+	/// <summary>News List</summary>
+	[PublishedContentModel("newsList")]
+	public partial class NewsList : PublishedContentModel
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "newsList";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public NewsList(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NewsList, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
 	}
 
 	/// <summary>Folder</summary>
