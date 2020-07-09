@@ -1,13 +1,12 @@
 ﻿@inherits UmbracoViewPage
+@{
+    bool isHomePage = Umbraco.AssignedContentItem.Url == "/";
+}
 
 <section class="wrapper style1 special">
     <div class="inner">
         <header>
-            <h2>Duis torquent</h2>
-            <p>
-                Rutrum facilisis. Class aptent taciti sociosqu<br />
-                litora torquent et conubia etiam nostra.
-            </p>
+            @*<h2>News</h2>*@
         </header>
         <section class="spotlight">
             <span class="image"><img src="/images/pic02.jpg" alt="" /></span>
@@ -51,11 +50,13 @@
                 </footer>
             </div>
         </section>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos malesuada fames ac turpis egestas. In non lorem amet. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique eu nibh.</p>
-        <footer>
-            <ul class="actions special">
-                <li><a href="#" class="button">Details</a></li>
-            </ul>
-        </footer>
+        @if (isHomePage)
+        {
+            <footer>
+                <ul class="actions special">
+                    <li><a href="/news/" class="button">View all news</a></li>
+                </ul>
+            </footer>
+        }
     </div>
 </section>
