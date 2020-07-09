@@ -322,6 +322,8 @@
   <ItemGroup>
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Models\ContactViewModel.cs" />
+    <Compile Include="Models\NewsArticleListModel.cs" />
+    <Compile Include="Models\NewsArticleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
