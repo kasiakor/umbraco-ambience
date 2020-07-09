@@ -16,7 +16,9 @@
             <h1>@Umbraco.Field("pageTitle", altFieldAlias: "pageName")</h1>
             <p>@Umbraco.Field("subtitle")</p>
         </header>
-        @{ Html.RenderPartial("Content/_Spotlight"); }
+        <span class="image main"><img src="@mainImageUrl" alt="" /></span>
+        @Umbraco.Field("mainContent")
+        @{ Html.RenderPartial("Content/_ImageList"); }
     </div>
 </section>
 
