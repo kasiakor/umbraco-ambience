@@ -17,6 +17,7 @@
             <p>@Umbraco.Field("subtitle")</p>
         </header>
         <span class="image main"><img src="@mainImageUrl" alt="" /></span>
+        <p><strong>@Umbraco.Field("articleDate", formatAsDate: true)</strong></p>
         @Umbraco.Field("mainContent")
         @{ Html.RenderPartial("Content/_ImageList"); }
     </div>

@@ -8,8 +8,8 @@ using  Umbraco.Web;
 using  Umbraco.ModelsBuilder;
 using  Umbraco.ModelsBuilder.Umbraco;
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "5a86c77b98ee3fbc")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.4")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "5f95b7f7c54e2327")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.6")]
 
 
 // FILE: models.generated.cs
@@ -873,6 +873,159 @@ namespace Umbraco.Web.PublishedContentModels
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NewsList, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	// Mixin content Type 1091 with alias "newsArticleControls"
+	/// <summary>News Article Controls</summary>
+	public partial interface INewsArticleControls : IPublishedContent
+	{
+		/// <summary>Article Date</summary>
+		DateTime ArticleDate { get; }
+	}
+
+	/// <summary>News Article Controls</summary>
+	[PublishedContentModel("newsArticleControls")]
+	public partial class NewsArticleControls : PublishedContentModel, INewsArticleControls
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "newsArticleControls";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public NewsArticleControls(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NewsArticleControls, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Article Date: Enter the date for the article
+		///</summary>
+		[ImplementPropertyType("articleDate")]
+		public DateTime ArticleDate
+		{
+			get { return GetArticleDate(this); }
+		}
+
+		/// <summary>Static getter for Article Date</summary>
+		public static DateTime GetArticleDate(INewsArticleControls that) { return that.GetPropertyValue<DateTime>("articleDate"); }
+	}
+
+	/// <summary>News Article</summary>
+	[PublishedContentModel("newsArticle")]
+	public partial class NewsArticle : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IHideFromNavigationControls, IImageListControls, IMainTitleImageControls, INewsArticleControls, IUmbracoUrlAliasControls
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "newsArticle";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public NewsArticle(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NewsArticle, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Main Content: Enter the main content of this page
+		///</summary>
+		[ImplementPropertyType("mainContent")]
+		public IHtmlString MainContent
+		{
+			get { return Umbraco.Web.PublishedContentModels.BasicContentControls.GetMainContent(this); }
+		}
+
+		///<summary>
+		/// Page Title: Enter page title. If left blank, the name of the page will be used
+		///</summary>
+		[ImplementPropertyType("pageTitle")]
+		public string PageTitle
+		{
+			get { return Umbraco.Web.PublishedContentModels.BasicTitleControls.GetPageTitle(this); }
+		}
+
+		///<summary>
+		/// Subtitle: Enter the subtitle
+		///</summary>
+		[ImplementPropertyType("subtitle")]
+		public string Subtitle
+		{
+			get { return Umbraco.Web.PublishedContentModels.BasicTitleControls.GetSubtitle(this); }
+		}
+
+		///<summary>
+		/// Title Link: Enter the link for title and subtitle
+		///</summary>
+		[ImplementPropertyType("titleLink")]
+		public Umbraco.Web.Models.RelatedLinks TitleLink
+		{
+			get { return Umbraco.Web.PublishedContentModels.BasicTitleControls.GetTitleLink(this); }
+		}
+
+		///<summary>
+		/// Umbraco Navi Hide: Tick this box if you want to hide this page
+		///</summary>
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide
+		{
+			get { return Umbraco.Web.PublishedContentModels.HideFromNavigationControls.GetUmbracoNaviHide(this); }
+		}
+
+		///<summary>
+		/// Image List: Add images to show in the list
+		///</summary>
+		[ImplementPropertyType("imageList")]
+		public IEnumerable<IPublishedContent> ImageList
+		{
+			get { return Umbraco.Web.PublishedContentModels.ImageListControls.GetImageList(this); }
+		}
+
+		///<summary>
+		/// Main Image: Please choose an image to show under the title
+		///</summary>
+		[ImplementPropertyType("mainImage")]
+		public IPublishedContent MainImage
+		{
+			get { return Umbraco.Web.PublishedContentModels.MainTitleImageControls.GetMainImage(this); }
+		}
+
+		///<summary>
+		/// Article Date: Enter the date for the article
+		///</summary>
+		[ImplementPropertyType("articleDate")]
+		public DateTime ArticleDate
+		{
+			get { return Umbraco.Web.PublishedContentModels.NewsArticleControls.GetArticleDate(this); }
+		}
+
+		///<summary>
+		/// Umbraco Url Alias: Enter an alternative URL. Please note that the values you use must be lowercase, not use a leading slash and not use a trailing ".aspx" or trailing slash. If you are adding multiple values, they must be separated with a comma.
+		///</summary>
+		[ImplementPropertyType("umbracoUrlAlias")]
+		public string UmbracoUrlAlias
+		{
+			get { return Umbraco.Web.PublishedContentModels.UmbracoUrlAliasControls.GetUmbracoUrlAlias(this); }
 		}
 	}
 
