@@ -1,13 +1,6 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "WebBase.cshtml";
-
-    string mainImageUrl = "";
-
-    if (Model.Content.HasValue("mainImage"))
-    {
-        mainImageUrl = Model.Content.GetPropertyValue<IPublishedContent>("mainImage").Url;
-    }
 }
 
 <section id="main" class="wrapper style1">
@@ -16,7 +9,7 @@
             <h1>@Umbraco.Field("pageTitle", altFieldAlias: "pageName")</h1>
             <p>@Umbraco.Field("subtitle")</p>
         </header>
-        @{ Html.RenderPartial("Content/_Spotlight"); }
+        @{Html.RenderAction("RenderNewsList", "News"); }
     </div>
 </section>
 

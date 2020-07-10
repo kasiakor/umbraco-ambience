@@ -2,11 +2,11 @@
 @{
     Layout = "WebBase.cshtml";
 
-    string mainImageUrl = "";
+    string articleImageUrl = "";
 
-    if (Model.Content.HasValue("mainImage"))
+    if (Model.Content.HasValue("articleImage"))
     {
-        mainImageUrl = Model.Content.GetPropertyValue<IPublishedContent>("mainImage").Url;
+        articleImageUrl = Model.Content.GetPropertyValue<IPublishedContent>("articleImage").Url;
     }
 }
 
@@ -15,11 +15,10 @@
         <header class="major">
             <h1>@Umbraco.Field("pageTitle", altFieldAlias: "pageName")</h1>
             <p>@Umbraco.Field("subtitle")</p>
+            @Umbraco.Field("articleIntro")
         </header>
-        <span class="image main"><img src="@mainImageUrl" alt="" /></span>
+        <span class="image main"><img src="@articleImageUrl" alt="" /></span>
         <p><strong>@Umbraco.Field("articleDate", formatAsDate: true)</strong></p>
-        @Umbraco.Field("mainContent")
-        @{ Html.RenderPartial("Content/_ImageList"); }
     </div>
 </section>
 

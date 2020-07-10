@@ -321,9 +321,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Models\ContactViewModel.cs" />
-    <Compile Include="Models\NewsArticleListModel.cs" />
-    <Compile Include="Models\NewsArticleModel.cs" />
+    <Compile Include="Models\NewsPreviewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -401,7 +401,7 @@
     <Content Include="Views\Partials\SiteLayout\_MainNavigation.cshtml" />
     <Content Include="Views\Partials\Content\_Intro.cshtml" />
     <Content Include="Views\Partials\Content\_Services.cshtml" />
-    <Content Include="Views\Partials\Content\_Spotlight.cshtml" />
+    <Content Include="Views\Partials\News\_Spotlight.cshtml" />
     <Content Include="Views\Partials\Content\_BackgroundImageContent.cshtml" />
     <Content Include="Views\Partials\Contact\_ContactForm.cshtml" />
     <Content Include="Views\Partials\Contact\_Success.cshtml" />
@@ -409,6 +409,7 @@
     <Content Include="Views\Partials\Content\_ImageList.cshtml" />
     <Content Include="Views\NewsList.cshtml" />
     <Content Include="Views\NewsArticle.cshtml" />
+    <Content Include="Views\Partials\Content\_Spotlight.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
