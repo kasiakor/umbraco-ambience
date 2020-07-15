@@ -21,7 +21,7 @@ namespace UmbracoAmbience.Web.Controllers
             IPublishedContent newsPage = CurrentPage.AncestorsOrSelf("newsList").FirstOrDefault();
             List<NewsPreviewModel> model = new List<NewsPreviewModel>();
 
-            foreach(IPublishedContent page in newsPage.Children.OrderByDescending(y => y.CreateDate))
+            foreach(IPublishedContent page in newsPage.Children.OrderByDescending(y => y.GetPropertyValue<DateTime>("articleDate")))
             {
                 string title = page.GetPropertyValue<string>("articleTitle");
                 string intro = page.GetPropertyValue<string>("articleIntro");
