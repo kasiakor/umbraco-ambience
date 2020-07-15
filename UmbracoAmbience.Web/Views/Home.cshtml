@@ -8,7 +8,7 @@
 <!-- One -->
 @{ Html.RenderPartial("Content/_Services"); }
 <!-- Two -->
-@{ Html.RenderPartial("Content/_Spotlight"); }
+@{ Html.RenderAction("RenderNewsList", "News", new { itemsToShow = 1 });}
 <!-- Three -->
 @{ Html.RenderPartial("Content/_BackgroundImageContent"); }
 

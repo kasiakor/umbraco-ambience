@@ -9,7 +9,8 @@
             <h1>@Umbraco.Field("pageTitle", altFieldAlias: "pageName")</h1>
             <p>@Umbraco.Field("subtitle")</p>
         </header>
-        @{Html.RenderAction("RenderNewsList", "News"); }
+        @{ Html.RenderAction("RenderNewsList", "News", new { itemsToShow = 4 });}
+        @*@{Html.RenderAction("RenderNewsList", "News"); }*@
     </div>
 </section>
 

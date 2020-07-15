@@ -16,26 +16,30 @@ namespace UmbracoAmbience.Web.Controllers
         {
             return $"/Views/Partials/News/{name}.cshtml";
         }
-        public ActionResult RenderNewsList()
+        public ActionResult RenderNewsList(int itemsToShow)
         {
-            IPublishedContent newsPage = CurrentPage.AncestorsOrSelf("newsList").FirstOrDefault();
+           
             List<NewsPreviewModel> model = new List<NewsPreviewModel>();
-
-            foreach(IPublishedContent page in newsPage.Children.OrderByDescending(y => y.GetPropertyValue<DateTime>("articleDate")))
+            IPublishedContent newsPage = CurrentPage.AncestorsOrSelf("newsList").FirstOrDefault();
+            if(newsPage !=null && newsPage.Children.Any())
             {
-                string title = page.GetPropertyValue<string>("articleTitle");
-                string intro = page.GetPropertyValue<string>("articleIntro");
+                foreach (IPublishedContent page in newsPage.Children.OrderByDescending(y => y.GetPropertyValue<DateTime>("articleDate")).Take(itemsToShow))
+                {
+                    string title = page.GetPropertyValue<string>("articleTitle");
+                    string intro = page.GetPropertyValue<string>("articleIntro");
 
-                int imageId = page.GetPropertyValue<int>("articleImage");
-                var mediaItem = Umbraco.Media(imageId);
-                string imageUrl = mediaItem.Url;
+                    int imageId = page.GetPropertyValue<int>("articleImage");
+                    var mediaItem = Umbraco.Media(imageId);
+                    string imageUrl = mediaItem.Url;
 
-                string linkUrl = page.Url;
+                    string linkUrl = page.Url;
 
-                //string articleDate = umbraco.library.FormatDateTime(page.GetPropertyValue("articleDate").ToString(), "dd-MM-yyyy");
-                string articleDate = page.GetPropertyValue<string>("articleDate");
+                    //string articleDate = umbraco.library.FormatDateTime(page.GetPropertyValue("articleDate").ToString(), "dd-MM-yyyy");
+                    string articleDate = page.GetPropertyValue<string>("articleDate");
 
-                model.Add(new NewsPreviewModel(title, intro, imageUrl, linkUrl, articleDate));
+                    model.Add(new NewsPreviewModel(title, intro, imageUrl, linkUrl, articleDate));
+
+                }
             }
             return PartialView(GetPathView("_Spotlight"), model);
 

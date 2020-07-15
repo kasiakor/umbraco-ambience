@@ -19,14 +19,14 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "fa443f3a803788c1")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "50f6e0116005284")]
 [assembly:System.Reflection.AssemblyVersion("0.0.0.2")]
 
 namespace Umbraco.Web.PublishedContentModels
 {
 	/// <summary>Home</summary>
 	[PublishedContentModel("home")]
-	public partial class Home : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IFooterContentControls, IMainTitleImageControls, IServicesControls
+	public partial class Home : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IFooterContentControls, IMainTitleImageControls, INewsArticleControls, IServicesControls
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "home";
@@ -119,6 +119,42 @@ namespace Umbraco.Web.PublishedContentModels
 		public IPublishedContent MainImage
 		{
 			get { return Umbraco.Web.PublishedContentModels.MainTitleImageControls.GetMainImage(this); }
+		}
+
+		///<summary>
+		/// Article Date: Enter the date for the article
+		///</summary>
+		[ImplementPropertyType("articleDate")]
+		public DateTime ArticleDate
+		{
+			get { return Umbraco.Web.PublishedContentModels.NewsArticleControls.GetArticleDate(this); }
+		}
+
+		///<summary>
+		/// Article Image: Add image for the article
+		///</summary>
+		[ImplementPropertyType("articleImage")]
+		public IPublishedContent ArticleImage
+		{
+			get { return Umbraco.Web.PublishedContentModels.NewsArticleControls.GetArticleImage(this); }
+		}
+
+		///<summary>
+		/// Article Intro: Add article introduction
+		///</summary>
+		[ImplementPropertyType("articleIntro")]
+		public string ArticleIntro
+		{
+			get { return Umbraco.Web.PublishedContentModels.NewsArticleControls.GetArticleIntro(this); }
+		}
+
+		///<summary>
+		/// Article Title: Add article title, if empty it will page name
+		///</summary>
+		[ImplementPropertyType("articleTitle")]
+		public string ArticleTitle
+		{
+			get { return Umbraco.Web.PublishedContentModels.NewsArticleControls.GetArticleTitle(this); }
 		}
 
 		///<summary>
