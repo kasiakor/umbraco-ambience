@@ -32,7 +32,10 @@ namespace UmbracoAmbience.Web.Controllers
 
                 string linkUrl = page.Url;
 
-                model.Add(new NewsPreviewModel(title, intro, imageUrl, linkUrl));
+                //string articleDate = umbraco.library.FormatDateTime(page.GetPropertyValue("articleDate").ToString(), "dd-MM-yyyy");
+                string articleDate = page.GetPropertyValue<string>("articleDate");
+
+                model.Add(new NewsPreviewModel(title, intro, imageUrl, linkUrl, articleDate));
             }
             return PartialView(GetPathView("_Spotlight"), model);
 

@@ -11,13 +11,15 @@ namespace UmbracoAmbience.Web.Models
         public string Intro { get; set; }
         public string ImageUrl { get; set; }
         public string LinkUrl{ get; set; }
-        
-        public NewsPreviewModel(string title, string intro, string imageUrl, string linkUrl)
+        public string ArticleDate { get; set; }
+
+        public NewsPreviewModel(string title, string intro, string imageUrl, string linkUrl, string articleDate)
         {
             Title = title;
             Intro = intro;
             ImageUrl = imageUrl;
             LinkUrl = linkUrl;
+            ArticleDate = articleDate;
            
 
         }

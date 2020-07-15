@@ -32,6 +32,8 @@
                 <ul class="actions">
                     <li><a href="@item.LinkUrl" class="button">Details</a></li>
                 </ul>
+                <p><strong>@Convert.ToDateTime(item.ArticleDate).ToString(" dd MMMM yyyy")</strong></p>
+                @*<p><strong>@item.ArticleDate</strong></p>*@
             </footer>
         </div>
     </section>
