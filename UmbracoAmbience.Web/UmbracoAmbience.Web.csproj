@@ -401,7 +401,6 @@
     <Content Include="Views\Partials\SiteLayout\_MainNavigation.cshtml" />
     <Content Include="Views\Partials\Content\_Intro.cshtml" />
     <Content Include="Views\Partials\Content\_Services.cshtml" />
-    <Content Include="Views\Partials\News\_Spotlight.cshtml" />
     <Content Include="Views\Partials\Content\_BackgroundImageContent.cshtml" />
     <Content Include="Views\Partials\Contact\_ContactForm.cshtml" />
     <Content Include="Views\Partials\Contact\_Success.cshtml" />

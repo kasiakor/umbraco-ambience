@@ -19,14 +19,14 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "50f6e0116005284")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.2")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "a342d20d27229867")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.3")]
 
 namespace Umbraco.Web.PublishedContentModels
 {
 	/// <summary>Home</summary>
 	[PublishedContentModel("home")]
-	public partial class Home : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IFooterContentControls, IMainTitleImageControls, INewsArticleControls, IServicesControls
+	public partial class Home : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IFooterContentControls, IMainTitleImageControls, INewsArticleControls, INewsList, IServicesControls
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "home";
@@ -870,9 +870,15 @@ namespace Umbraco.Web.PublishedContentModels
 		public static string GetServicesTitle(IServicesControls that) { return that.GetPropertyValue<string>("servicesTitle"); }
 	}
 
+	// Mixin content Type 1087 with alias "newsList"
+	/// <summary>News List</summary>
+	public partial interface INewsList : IPublishedContent
+	{
+	}
+
 	/// <summary>News List</summary>
 	[PublishedContentModel("newsList")]
-	public partial class NewsList : PublishedContentModel
+	public partial class NewsList : PublishedContentModel, INewsList
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "newsList";

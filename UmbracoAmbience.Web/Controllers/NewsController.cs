@@ -14,14 +14,16 @@ namespace UmbracoAmbience.Web.Controllers
     {
         public string GetPathView(string name)
         {
-            return $"/Views/Partials/News/{name}.cshtml";
+            return $"/Views/Partials/Content/{name}.cshtml";
         }
         public ActionResult RenderNewsList(int itemsToShow)
         {
            
             List<NewsPreviewModel> model = new List<NewsPreviewModel>();
-            IPublishedContent newsPage = CurrentPage.AncestorsOrSelf("newsList").FirstOrDefault();
-            if(newsPage !=null && newsPage.Children.Any())
+            //IPublishedContent newsPage = CurrentPage.AncestorsOrSelf("newsList").FirstOrDefault();
+            IPublishedContent newsPage = CurrentPage.AncestorOrSelf(1).DescendantsOrSelf().Where(x => x.DocumentTypeAlias == "newsList").FirstOrDefault();
+
+            if (newsPage !=null && newsPage.Children.Any())
             {
                 foreach (IPublishedContent page in newsPage.Children.OrderByDescending(y => y.GetPropertyValue<DateTime>("articleDate")).Take(itemsToShow))
                 {
