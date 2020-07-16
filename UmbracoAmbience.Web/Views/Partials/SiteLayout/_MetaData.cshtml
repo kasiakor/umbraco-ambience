@@ -1,0 +1,14 @@
+﻿@inherits UmbracoViewPage
+
+@{
+    var umetaName = Umbraco.Field("metaName", altFieldAlias: "pageName");
+    var umetaDescription = Umbraco.Field("metaDescription");
+    string[] umetaKeywords = Umbraco.AssignedContentItem.GetPropertyValue<string[]>("metaKeywords");
+    string keywordstags =   String.Join(",",umetaKeywords);
+}
+
+<meta name="name" content="@umetaName" />
+<meta name="description" content="@umetaDescription " />
+<meta name="keywords" content="@keywordstags" />
+
+

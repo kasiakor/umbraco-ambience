@@ -409,6 +409,7 @@
     <Content Include="Views\NewsList.cshtml" />
     <Content Include="Views\NewsArticle.cshtml" />
     <Content Include="Views\Partials\Content\_Spotlight.cshtml" />
+    <Content Include="Views\Partials\SiteLayout\_MetaData.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

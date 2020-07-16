@@ -8,8 +8,8 @@ using  Umbraco.Web;
 using  Umbraco.ModelsBuilder;
 using  Umbraco.ModelsBuilder.Umbraco;
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "a342d20d27229867")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "ead68a43538fdcc1")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.3")]
 
 
 // FILE: models.generated.cs
@@ -42,7 +42,7 @@ namespace Umbraco.Web.PublishedContentModels
 {
 	/// <summary>Home</summary>
 	[PublishedContentModel("home")]
-	public partial class Home : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IFooterContentControls, IMainTitleImageControls, INewsArticleControls, INewsList, IServicesControls
+	public partial class Home : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IFooterContentControls, IMainTitleImageControls, IMetaDataControls, INewsArticleControls, IServicesControls
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "home";
@@ -138,6 +138,33 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// Meta Description: Enter the meta description. This is what shows up in the Google etc. If left blank it will use the page name
+		///</summary>
+		[ImplementPropertyType("metaDescription")]
+		public string MetaDescription
+		{
+			get { return Umbraco.Web.PublishedContentModels.MetaDataControls.GetMetaDescription(this); }
+		}
+
+		///<summary>
+		/// Meta Keywords: Enter meta keywords. This will be used by SEO
+		///</summary>
+		[ImplementPropertyType("metaKeywords")]
+		public IEnumerable<string> MetaKeywords
+		{
+			get { return Umbraco.Web.PublishedContentModels.MetaDataControls.GetMetaKeywords(this); }
+		}
+
+		///<summary>
+		/// Meta Name: Enter the meta name, if left blank page name will be used
+		///</summary>
+		[ImplementPropertyType("metaName")]
+		public string MetaName
+		{
+			get { return Umbraco.Web.PublishedContentModels.MetaDataControls.GetMetaName(this); }
+		}
+
+		///<summary>
 		/// Article Date: Enter the date for the article
 		///</summary>
 		[ImplementPropertyType("articleDate")]
@@ -221,7 +248,7 @@ namespace Umbraco.Web.PublishedContentModels
 
 	/// <summary>Content</summary>
 	[PublishedContentModel("content")]
-	public partial class Content : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IHideFromNavigationControls, IImageListControls, IMainTitleImageControls, IUmbracoUrlAliasControls
+	public partial class Content : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IHideFromNavigationControls, IImageListControls, IMainTitleImageControls, IMetaDataControls, IUmbracoUrlAliasControls
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "content";
@@ -305,6 +332,33 @@ namespace Umbraco.Web.PublishedContentModels
 		public IPublishedContent MainImage
 		{
 			get { return Umbraco.Web.PublishedContentModels.MainTitleImageControls.GetMainImage(this); }
+		}
+
+		///<summary>
+		/// Meta Description: Enter the meta description. This is what shows up in the Google etc. If left blank it will use the page name
+		///</summary>
+		[ImplementPropertyType("metaDescription")]
+		public string MetaDescription
+		{
+			get { return Umbraco.Web.PublishedContentModels.MetaDataControls.GetMetaDescription(this); }
+		}
+
+		///<summary>
+		/// Meta Keywords: Enter meta keywords. This will be used by SEO
+		///</summary>
+		[ImplementPropertyType("metaKeywords")]
+		public IEnumerable<string> MetaKeywords
+		{
+			get { return Umbraco.Web.PublishedContentModels.MetaDataControls.GetMetaKeywords(this); }
+		}
+
+		///<summary>
+		/// Meta Name: Enter the meta name, if left blank page name will be used
+		///</summary>
+		[ImplementPropertyType("metaName")]
+		public string MetaName
+		{
+			get { return Umbraco.Web.PublishedContentModels.MetaDataControls.GetMetaName(this); }
 		}
 
 		///<summary>
@@ -886,15 +940,9 @@ namespace Umbraco.Web.PublishedContentModels
 		public static string GetServicesTitle(IServicesControls that) { return that.GetPropertyValue<string>("servicesTitle"); }
 	}
 
-	// Mixin content Type 1087 with alias "newsList"
-	/// <summary>News List</summary>
-	public partial interface INewsList : IPublishedContent
-	{
-	}
-
 	/// <summary>News List</summary>
 	[PublishedContentModel("newsList")]
-	public partial class NewsList : PublishedContentModel, INewsList
+	public partial class NewsList : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IHideFromNavigationControls, IImageListControls, IMainTitleImageControls, IMetaDataControls, IUmbracoUrlAliasControls
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "newsList";
@@ -915,6 +963,105 @@ namespace Umbraco.Web.PublishedContentModels
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NewsList, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Main Content: Enter the main content of this page
+		///</summary>
+		[ImplementPropertyType("mainContent")]
+		public IHtmlString MainContent
+		{
+			get { return Umbraco.Web.PublishedContentModels.BasicContentControls.GetMainContent(this); }
+		}
+
+		///<summary>
+		/// Page Title: Enter page title. If left blank, the name of the page will be used
+		///</summary>
+		[ImplementPropertyType("pageTitle")]
+		public string PageTitle
+		{
+			get { return Umbraco.Web.PublishedContentModels.BasicTitleControls.GetPageTitle(this); }
+		}
+
+		///<summary>
+		/// Subtitle: Enter the subtitle
+		///</summary>
+		[ImplementPropertyType("subtitle")]
+		public string Subtitle
+		{
+			get { return Umbraco.Web.PublishedContentModels.BasicTitleControls.GetSubtitle(this); }
+		}
+
+		///<summary>
+		/// Title Link: Enter the link for title and subtitle
+		///</summary>
+		[ImplementPropertyType("titleLink")]
+		public Umbraco.Web.Models.RelatedLinks TitleLink
+		{
+			get { return Umbraco.Web.PublishedContentModels.BasicTitleControls.GetTitleLink(this); }
+		}
+
+		///<summary>
+		/// Umbraco Navi Hide: Tick this box if you want to hide this page
+		///</summary>
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide
+		{
+			get { return Umbraco.Web.PublishedContentModels.HideFromNavigationControls.GetUmbracoNaviHide(this); }
+		}
+
+		///<summary>
+		/// Image List: Add images to show in the list
+		///</summary>
+		[ImplementPropertyType("imageList")]
+		public IEnumerable<IPublishedContent> ImageList
+		{
+			get { return Umbraco.Web.PublishedContentModels.ImageListControls.GetImageList(this); }
+		}
+
+		///<summary>
+		/// Main Image: Please choose an image to show under the title
+		///</summary>
+		[ImplementPropertyType("mainImage")]
+		public IPublishedContent MainImage
+		{
+			get { return Umbraco.Web.PublishedContentModels.MainTitleImageControls.GetMainImage(this); }
+		}
+
+		///<summary>
+		/// Meta Description: Enter the meta description. This is what shows up in the Google etc. If left blank it will use the page name
+		///</summary>
+		[ImplementPropertyType("metaDescription")]
+		public string MetaDescription
+		{
+			get { return Umbraco.Web.PublishedContentModels.MetaDataControls.GetMetaDescription(this); }
+		}
+
+		///<summary>
+		/// Meta Keywords: Enter meta keywords. This will be used by SEO
+		///</summary>
+		[ImplementPropertyType("metaKeywords")]
+		public IEnumerable<string> MetaKeywords
+		{
+			get { return Umbraco.Web.PublishedContentModels.MetaDataControls.GetMetaKeywords(this); }
+		}
+
+		///<summary>
+		/// Meta Name: Enter the meta name, if left blank page name will be used
+		///</summary>
+		[ImplementPropertyType("metaName")]
+		public string MetaName
+		{
+			get { return Umbraco.Web.PublishedContentModels.MetaDataControls.GetMetaName(this); }
+		}
+
+		///<summary>
+		/// Umbraco Url Alias: Enter an alternative URL. Please note that the values you use must be lowercase, not use a leading slash and not use a trailing ".aspx" or trailing slash. If you are adding multiple values, they must be separated with a comma.
+		///</summary>
+		[ImplementPropertyType("umbracoUrlAlias")]
+		public string UmbracoUrlAlias
+		{
+			get { return Umbraco.Web.PublishedContentModels.UmbracoUrlAliasControls.GetUmbracoUrlAlias(this); }
 		}
 	}
 
@@ -1011,7 +1158,7 @@ namespace Umbraco.Web.PublishedContentModels
 
 	/// <summary>News Article</summary>
 	[PublishedContentModel("newsArticle")]
-	public partial class NewsArticle : PublishedContentModel, IBasicTitleControls, INewsArticleControls
+	public partial class NewsArticle : PublishedContentModel, IBasicTitleControls, IMetaDataControls, INewsArticleControls
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "newsArticle";
@@ -1062,6 +1209,33 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// Meta Description: Enter the meta description. This is what shows up in the Google etc. If left blank it will use the page name
+		///</summary>
+		[ImplementPropertyType("metaDescription")]
+		public string MetaDescription
+		{
+			get { return Umbraco.Web.PublishedContentModels.MetaDataControls.GetMetaDescription(this); }
+		}
+
+		///<summary>
+		/// Meta Keywords: Enter meta keywords. This will be used by SEO
+		///</summary>
+		[ImplementPropertyType("metaKeywords")]
+		public IEnumerable<string> MetaKeywords
+		{
+			get { return Umbraco.Web.PublishedContentModels.MetaDataControls.GetMetaKeywords(this); }
+		}
+
+		///<summary>
+		/// Meta Name: Enter the meta name, if left blank page name will be used
+		///</summary>
+		[ImplementPropertyType("metaName")]
+		public string MetaName
+		{
+			get { return Umbraco.Web.PublishedContentModels.MetaDataControls.GetMetaName(this); }
+		}
+
+		///<summary>
 		/// Article Date: Enter the date for the article
 		///</summary>
 		[ImplementPropertyType("articleDate")]
@@ -1096,6 +1270,82 @@ namespace Umbraco.Web.PublishedContentModels
 		{
 			get { return Umbraco.Web.PublishedContentModels.NewsArticleControls.GetArticleTitle(this); }
 		}
+	}
+
+	// Mixin content Type 1099 with alias "metaDataControls"
+	/// <summary>Meta Data Controls</summary>
+	public partial interface IMetaDataControls : IPublishedContent
+	{
+		/// <summary>Meta Description</summary>
+		string MetaDescription { get; }
+
+		/// <summary>Meta Keywords</summary>
+		IEnumerable<string> MetaKeywords { get; }
+
+		/// <summary>Meta Name</summary>
+		string MetaName { get; }
+	}
+
+	/// <summary>Meta Data Controls</summary>
+	[PublishedContentModel("metaDataControls")]
+	public partial class MetaDataControls : PublishedContentModel, IMetaDataControls
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "metaDataControls";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public MetaDataControls(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<MetaDataControls, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Meta Description: Enter the meta description. This is what shows up in the Google etc. If left blank it will use the page name
+		///</summary>
+		[ImplementPropertyType("metaDescription")]
+		public string MetaDescription
+		{
+			get { return GetMetaDescription(this); }
+		}
+
+		/// <summary>Static getter for Meta Description</summary>
+		public static string GetMetaDescription(IMetaDataControls that) { return that.GetPropertyValue<string>("metaDescription"); }
+
+		///<summary>
+		/// Meta Keywords: Enter meta keywords. This will be used by SEO
+		///</summary>
+		[ImplementPropertyType("metaKeywords")]
+		public IEnumerable<string> MetaKeywords
+		{
+			get { return GetMetaKeywords(this); }
+		}
+
+		/// <summary>Static getter for Meta Keywords</summary>
+		public static IEnumerable<string> GetMetaKeywords(IMetaDataControls that) { return that.GetPropertyValue<IEnumerable<string>>("metaKeywords"); }
+
+		///<summary>
+		/// Meta Name: Enter the meta name, if left blank page name will be used
+		///</summary>
+		[ImplementPropertyType("metaName")]
+		public string MetaName
+		{
+			get { return GetMetaName(this); }
+		}
+
+		/// <summary>Static getter for Meta Name</summary>
+		public static string GetMetaName(IMetaDataControls that) { return that.GetPropertyValue<string>("metaName"); }
 	}
 
 	/// <summary>Folder</summary>
