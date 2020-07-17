@@ -1,4 +1,5 @@
 ﻿@inherits UmbracoViewPage
+@using Umbraco.Web.Models
 
 @{
     string fixedImageUrl = "";
@@ -7,22 +8,28 @@
     {
         fixedImageUrl = Umbraco.AssignedContentItem.GetPropertyValue<IPublishedContent>("fixedImage").Url;
     }
+
+    IEnumerable<RelatedLink> fixedImageLinks = Umbraco.AssignedContentItem.GetPropertyValue<IEnumerable<RelatedLink>>("fixedImageBlockLink");
+    RelatedLink fixedImageLink = null;
+    if (fixedImageLinks != null && fixedImageLinks.Count() > 0)
+    {
+        fixedImageLink = fixedImageLinks.FirstOrDefault();
+    }
 }
 
-    <section class="wrapper style3 special" style="background-image: url(@fixedImageUrl?brightness=-30)">
-        <div class="inner">
-            <header>
-                <h2>Amet ullamcorper</h2>
-                <p>
-                    Aptent taciti sociosqu litora torquent et conubia sed etiam.<br />
-                    Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam<br />
-                    turpis mauris, ultricies erat malesuada quis.
-                </p>
-            </header>
+<section class="wrapper style3 special" style="background-image: url(@fixedImageUrl?brightness=-30)">
+    <div class="inner">
+        <header>
+            <h2>@Umbraco.Field("fixedImageBlockTitle")</h2>
+            <p>@Umbraco.Field("fixedImageBlockContent")</p>
+        </header>
+        @if (fixedImageLink != null && !string.IsNullOrEmpty(fixedImageLink.Link) && !string.IsNullOrEmpty(fixedImageLink.Caption))
+        {
             <footer>
                 <ul class="actions special">
-                    <li><a href="#" class="button big">Get Started</a></li>
+                    <li><a href="@fixedImageLink.Link" class="button big" target="(@fixedImageLink.NewWindow ? "_blank" : null)">@fixedImageLink.Caption</a></li>
                 </ul>
             </footer>
-        </div>
-    </section>
+        }
+    </div>
+</section>
