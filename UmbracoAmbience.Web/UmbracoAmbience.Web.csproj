@@ -293,6 +293,7 @@
     <Content Include="images\pic05.jpg" />
     <Content Include="images\pic06.jpg" />
     <Content Include="images\pic07.jpg" />
+    <Content Include="images\sailing_ship.jpg" />
     <Content Include="index.html" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />

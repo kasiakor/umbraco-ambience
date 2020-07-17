@@ -19,14 +19,14 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "ead68a43538fdcc1")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.3")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "52c82aa35ed52432")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.2")]
 
 namespace Umbraco.Web.PublishedContentModels
 {
 	/// <summary>Home</summary>
 	[PublishedContentModel("home")]
-	public partial class Home : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IFooterContentControls, IMainTitleImageControls, IMetaDataControls, INewsArticleControls, IServicesControls
+	public partial class Home : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IFixedBackgroundImageBlock, IFooterContentControls, IMainTitleImageControls, IMetaDataControls, INewsArticleControls, IServicesControls
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "home";
@@ -83,6 +83,42 @@ namespace Umbraco.Web.PublishedContentModels
 		public Umbraco.Web.Models.RelatedLinks TitleLink
 		{
 			get { return Umbraco.Web.PublishedContentModels.BasicTitleControls.GetTitleLink(this); }
+		}
+
+		///<summary>
+		/// Fixed Image: Add image to the background of this section
+		///</summary>
+		[ImplementPropertyType("fixedImage")]
+		public IPublishedContent FixedImage
+		{
+			get { return Umbraco.Web.PublishedContentModels.FixedBackgroundImageBlock.GetFixedImage(this); }
+		}
+
+		///<summary>
+		/// Fixed Image Block Content: Enter the content to show in the fixed image section
+		///</summary>
+		[ImplementPropertyType("fixedImageBlockContent")]
+		public IHtmlString FixedImageBlockContent
+		{
+			get { return Umbraco.Web.PublishedContentModels.FixedBackgroundImageBlock.GetFixedImageBlockContent(this); }
+		}
+
+		///<summary>
+		/// Fixed Image Block Link: Enter the link for the fixed image section
+		///</summary>
+		[ImplementPropertyType("fixedImageBlockLink")]
+		public Umbraco.Web.Models.RelatedLinks FixedImageBlockLink
+		{
+			get { return Umbraco.Web.PublishedContentModels.FixedBackgroundImageBlock.GetFixedImageBlockLink(this); }
+		}
+
+		///<summary>
+		/// Fixed Image Block Title: Enter the title for the fixed image section
+		///</summary>
+		[ImplementPropertyType("fixedImageBlockTitle")]
+		public string FixedImageBlockTitle
+		{
+			get { return Umbraco.Web.PublishedContentModels.FixedBackgroundImageBlock.GetFixedImageBlockTitle(this); }
 		}
 
 		///<summary>
@@ -232,7 +268,7 @@ namespace Umbraco.Web.PublishedContentModels
 
 	/// <summary>Content</summary>
 	[PublishedContentModel("content")]
-	public partial class Content : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IHideFromNavigationControls, IImageListControls, IMainTitleImageControls, IMetaDataControls, IUmbracoUrlAliasControls
+	public partial class Content : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IFixedBackgroundImageBlock, IHideFromNavigationControls, IImageListControls, IMainTitleImageControls, IMetaDataControls, IUmbracoUrlAliasControls
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "content";
@@ -289,6 +325,42 @@ namespace Umbraco.Web.PublishedContentModels
 		public Umbraco.Web.Models.RelatedLinks TitleLink
 		{
 			get { return Umbraco.Web.PublishedContentModels.BasicTitleControls.GetTitleLink(this); }
+		}
+
+		///<summary>
+		/// Fixed Image: Add image to the background of this section
+		///</summary>
+		[ImplementPropertyType("fixedImage")]
+		public IPublishedContent FixedImage
+		{
+			get { return Umbraco.Web.PublishedContentModels.FixedBackgroundImageBlock.GetFixedImage(this); }
+		}
+
+		///<summary>
+		/// Fixed Image Block Content: Enter the content to show in the fixed image section
+		///</summary>
+		[ImplementPropertyType("fixedImageBlockContent")]
+		public IHtmlString FixedImageBlockContent
+		{
+			get { return Umbraco.Web.PublishedContentModels.FixedBackgroundImageBlock.GetFixedImageBlockContent(this); }
+		}
+
+		///<summary>
+		/// Fixed Image Block Link: Enter the link for the fixed image section
+		///</summary>
+		[ImplementPropertyType("fixedImageBlockLink")]
+		public Umbraco.Web.Models.RelatedLinks FixedImageBlockLink
+		{
+			get { return Umbraco.Web.PublishedContentModels.FixedBackgroundImageBlock.GetFixedImageBlockLink(this); }
+		}
+
+		///<summary>
+		/// Fixed Image Block Title: Enter the title for the fixed image section
+		///</summary>
+		[ImplementPropertyType("fixedImageBlockTitle")]
+		public string FixedImageBlockTitle
+		{
+			get { return Umbraco.Web.PublishedContentModels.FixedBackgroundImageBlock.GetFixedImageBlockTitle(this); }
 		}
 
 		///<summary>
@@ -926,7 +998,7 @@ namespace Umbraco.Web.PublishedContentModels
 
 	/// <summary>News List</summary>
 	[PublishedContentModel("newsList")]
-	public partial class NewsList : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IHideFromNavigationControls, IImageListControls, IMainTitleImageControls, IMetaDataControls, IUmbracoUrlAliasControls
+	public partial class NewsList : PublishedContentModel, IBasicContentControls, IBasicTitleControls, IFixedBackgroundImageBlock, IHideFromNavigationControls, IImageListControls, IMainTitleImageControls, IMetaDataControls, IUmbracoUrlAliasControls
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "newsList";
@@ -983,6 +1055,42 @@ namespace Umbraco.Web.PublishedContentModels
 		public Umbraco.Web.Models.RelatedLinks TitleLink
 		{
 			get { return Umbraco.Web.PublishedContentModels.BasicTitleControls.GetTitleLink(this); }
+		}
+
+		///<summary>
+		/// Fixed Image: Add image to the background of this section
+		///</summary>
+		[ImplementPropertyType("fixedImage")]
+		public IPublishedContent FixedImage
+		{
+			get { return Umbraco.Web.PublishedContentModels.FixedBackgroundImageBlock.GetFixedImage(this); }
+		}
+
+		///<summary>
+		/// Fixed Image Block Content: Enter the content to show in the fixed image section
+		///</summary>
+		[ImplementPropertyType("fixedImageBlockContent")]
+		public IHtmlString FixedImageBlockContent
+		{
+			get { return Umbraco.Web.PublishedContentModels.FixedBackgroundImageBlock.GetFixedImageBlockContent(this); }
+		}
+
+		///<summary>
+		/// Fixed Image Block Link: Enter the link for the fixed image section
+		///</summary>
+		[ImplementPropertyType("fixedImageBlockLink")]
+		public Umbraco.Web.Models.RelatedLinks FixedImageBlockLink
+		{
+			get { return Umbraco.Web.PublishedContentModels.FixedBackgroundImageBlock.GetFixedImageBlockLink(this); }
+		}
+
+		///<summary>
+		/// Fixed Image Block Title: Enter the title for the fixed image section
+		///</summary>
+		[ImplementPropertyType("fixedImageBlockTitle")]
+		public string FixedImageBlockTitle
+		{
+			get { return Umbraco.Web.PublishedContentModels.FixedBackgroundImageBlock.GetFixedImageBlockTitle(this); }
 		}
 
 		///<summary>
@@ -1142,7 +1250,7 @@ namespace Umbraco.Web.PublishedContentModels
 
 	/// <summary>News Article</summary>
 	[PublishedContentModel("newsArticle")]
-	public partial class NewsArticle : PublishedContentModel, IBasicTitleControls, IMetaDataControls, INewsArticleControls
+	public partial class NewsArticle : PublishedContentModel, IBasicTitleControls, IFixedBackgroundImageBlock, IMetaDataControls, INewsArticleControls
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "newsArticle";
@@ -1190,6 +1298,42 @@ namespace Umbraco.Web.PublishedContentModels
 		public Umbraco.Web.Models.RelatedLinks TitleLink
 		{
 			get { return Umbraco.Web.PublishedContentModels.BasicTitleControls.GetTitleLink(this); }
+		}
+
+		///<summary>
+		/// Fixed Image: Add image to the background of this section
+		///</summary>
+		[ImplementPropertyType("fixedImage")]
+		public IPublishedContent FixedImage
+		{
+			get { return Umbraco.Web.PublishedContentModels.FixedBackgroundImageBlock.GetFixedImage(this); }
+		}
+
+		///<summary>
+		/// Fixed Image Block Content: Enter the content to show in the fixed image section
+		///</summary>
+		[ImplementPropertyType("fixedImageBlockContent")]
+		public IHtmlString FixedImageBlockContent
+		{
+			get { return Umbraco.Web.PublishedContentModels.FixedBackgroundImageBlock.GetFixedImageBlockContent(this); }
+		}
+
+		///<summary>
+		/// Fixed Image Block Link: Enter the link for the fixed image section
+		///</summary>
+		[ImplementPropertyType("fixedImageBlockLink")]
+		public Umbraco.Web.Models.RelatedLinks FixedImageBlockLink
+		{
+			get { return Umbraco.Web.PublishedContentModels.FixedBackgroundImageBlock.GetFixedImageBlockLink(this); }
+		}
+
+		///<summary>
+		/// Fixed Image Block Title: Enter the title for the fixed image section
+		///</summary>
+		[ImplementPropertyType("fixedImageBlockTitle")]
+		public string FixedImageBlockTitle
+		{
+			get { return Umbraco.Web.PublishedContentModels.FixedBackgroundImageBlock.GetFixedImageBlockTitle(this); }
 		}
 
 		///<summary>
@@ -1330,6 +1474,97 @@ namespace Umbraco.Web.PublishedContentModels
 
 		/// <summary>Static getter for Meta Name</summary>
 		public static string GetMetaName(IMetaDataControls that) { return that.GetPropertyValue<string>("metaName"); }
+	}
+
+	// Mixin content Type 1101 with alias "fixedBackgroundImageBlock"
+	/// <summary>Fixed Background Image Block</summary>
+	public partial interface IFixedBackgroundImageBlock : IPublishedContent
+	{
+		/// <summary>Fixed Image</summary>
+		IPublishedContent FixedImage { get; }
+
+		/// <summary>Fixed Image Block Content</summary>
+		IHtmlString FixedImageBlockContent { get; }
+
+		/// <summary>Fixed Image Block Link</summary>
+		Umbraco.Web.Models.RelatedLinks FixedImageBlockLink { get; }
+
+		/// <summary>Fixed Image Block Title</summary>
+		string FixedImageBlockTitle { get; }
+	}
+
+	/// <summary>Fixed Background Image Block</summary>
+	[PublishedContentModel("fixedBackgroundImageBlock")]
+	public partial class FixedBackgroundImageBlock : PublishedContentModel, IFixedBackgroundImageBlock
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "fixedBackgroundImageBlock";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public FixedBackgroundImageBlock(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<FixedBackgroundImageBlock, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Fixed Image: Add image to the background of this section
+		///</summary>
+		[ImplementPropertyType("fixedImage")]
+		public IPublishedContent FixedImage
+		{
+			get { return GetFixedImage(this); }
+		}
+
+		/// <summary>Static getter for Fixed Image</summary>
+		public static IPublishedContent GetFixedImage(IFixedBackgroundImageBlock that) { return that.GetPropertyValue<IPublishedContent>("fixedImage"); }
+
+		///<summary>
+		/// Fixed Image Block Content: Enter the content to show in the fixed image section
+		///</summary>
+		[ImplementPropertyType("fixedImageBlockContent")]
+		public IHtmlString FixedImageBlockContent
+		{
+			get { return GetFixedImageBlockContent(this); }
+		}
+
+		/// <summary>Static getter for Fixed Image Block Content</summary>
+		public static IHtmlString GetFixedImageBlockContent(IFixedBackgroundImageBlock that) { return that.GetPropertyValue<IHtmlString>("fixedImageBlockContent"); }
+
+		///<summary>
+		/// Fixed Image Block Link: Enter the link for the fixed image section
+		///</summary>
+		[ImplementPropertyType("fixedImageBlockLink")]
+		public Umbraco.Web.Models.RelatedLinks FixedImageBlockLink
+		{
+			get { return GetFixedImageBlockLink(this); }
+		}
+
+		/// <summary>Static getter for Fixed Image Block Link</summary>
+		public static Umbraco.Web.Models.RelatedLinks GetFixedImageBlockLink(IFixedBackgroundImageBlock that) { return that.GetPropertyValue<Umbraco.Web.Models.RelatedLinks>("fixedImageBlockLink"); }
+
+		///<summary>
+		/// Fixed Image Block Title: Enter the title for the fixed image section
+		///</summary>
+		[ImplementPropertyType("fixedImageBlockTitle")]
+		public string FixedImageBlockTitle
+		{
+			get { return GetFixedImageBlockTitle(this); }
+		}
+
+		/// <summary>Static getter for Fixed Image Block Title</summary>
+		public static string GetFixedImageBlockTitle(IFixedBackgroundImageBlock that) { return that.GetPropertyValue<string>("fixedImageBlockTitle"); }
 	}
 
 	/// <summary>Folder</summary>
